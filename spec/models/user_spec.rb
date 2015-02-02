@@ -20,4 +20,22 @@ RSpec.describe User, :type => :model do
     of_age_user = FactoryGirl.build(:user)
     expect(of_age_user.is_underage?).to eq(false)
   end
+
+  it "checks for uniqueness of username" do
+    
+    # Creates a user with a username
+    user1 = FactoryGirl.create(:user)
+
+    # Create a user with the same username
+    user2 = FactoryGirl.build(:user, username: user1.username)
+    
+    expect(user2).to be_invalid
+  end
+
+  it "#power_user? should be true for users with 1000+ posts" 
+  
+
+  it "#inactive? should be true for users without posts in the last 30 days" 
+  
+
 end
