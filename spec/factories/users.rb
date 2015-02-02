@@ -16,6 +16,17 @@ FactoryGirl.define do
       # email "MyString"
       # settings_private false
       date_of_birth { 20.years.ago }
+
+      factory :user_with_posts do
+        ignore do
+          posts_count 10
+        end
+
+        after(:create) do |user, evaluator|
+          create_list(:post, evaluator.posts_count, user: user)
+        end
+      end
     end
+    
   end
 end

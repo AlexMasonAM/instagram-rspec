@@ -32,10 +32,13 @@ RSpec.describe User, :type => :model do
     expect(user2).to be_invalid
   end
 
-  it "#power_user? should be true for users with 1000+ posts" 
-  
+  it "#power_user? should be true for users with 1000+ posts" do  
+    user = create(:user_with_posts, posts_count: 1000)
+    expect(user.power_user?).to  eq(true)
+  end
 
-  it "#inactive? should be true for users without posts in the last 30 days" 
-  
-
+  it "#inactive? should be true for users without posts in the last 30 days" do
+    user.posts << create(:post, created_at: 50.days.ago)
+    expect(user.inactive?).to eq(true)
+  end
 end
